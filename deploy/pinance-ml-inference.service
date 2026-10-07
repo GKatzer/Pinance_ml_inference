@@ -1,0 +1,27 @@
+[Unit]
+Description=Pinance ML inference -- model serving
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pinance
+Group=pinance
+WorkingDirectory=/opt/pinance_ml_inference
+
+# Binds to this node's Tailscale IP specifically, not 0.0.0.0 -- the node has no
+# public port in this project's architecture, and resolving the IP at start
+# (rather than hardcoding it) survives it changing across reboots.
+ExecStart=/bin/bash -c 'exec /opt/pinance_ml_inference/.venv/bin/uvicorn pinance_ml_inference.api:app --app-dir src --host "$(tailscale ip -4)" --port 8001'
+
+EnvironmentFile=/opt/pinance_ml_inference/.env
+Restart=on-failure
+RestartSec=5
+
+# Models come from MinIO into memory now (model_registry.py), not local disk;
+# DB access is read-only (pinance_ro) already -- nothing needs a writable path.
+NoNewPrivileges=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

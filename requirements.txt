@@ -1,0 +1,20 @@
+# Pinned to match the training environment (Pinance_ML@50150a3) bit-for-bit --
+# `ta`'s indicator implementations in particular can shift between versions,
+# which would silently desync serving features from what the models were
+# trained on. scikit-learn is deliberately absent: training uses the
+# LGBMRegressor sklearn wrapper, but serving loads the underlying Booster
+# directly (lgb.Booster(model_str=...)), which has no sklearn dependency.
+pandas==3.0.3
+numpy==2.5.1
+lightgbm==4.7.0
+ta==0.11.0
+
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+fastapi>=0.115
+uvicorn[standard]>=0.30
+minio>=7.2
+
+httpx>=0.27     # FastAPI TestClient (tests only)
+pytest>=8.0

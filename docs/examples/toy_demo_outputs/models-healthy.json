@@ -1,0 +1,44 @@
+{
+    "expected_schema_version": {
+        "BTCUSDT": "38b98fc7516d",
+        "ETHUSDT": "f72fb5b8ba97"
+    },
+    "models": {
+        "BTCUSDT": {
+            "production": {
+                "loaded": true,
+                "last_load_error": null,
+                "model_version": "toy-1",
+                "schema_version": "38b98fc7516d",
+                "matches_expected": true,
+                "quantile": {
+                    "status": "loaded",
+                    "quantile_model_version": "toy-1",
+                    "quantile_schema_version": "38b98fc7516d"
+                }
+            },
+            "candidate": {
+                "loaded": false,
+                "last_load_error": null
+            }
+        },
+        "ETHUSDT": {
+            "production": {
+                "loaded": true,
+                "last_load_error": null,
+                "model_version": "toy-1",
+                "schema_version": "f72fb5b8ba97",
+                "matches_expected": true,
+                "quantile": {
+                    "status": "loaded",
+                    "quantile_model_version": "toy-1",
+                    "quantile_schema_version": "f72fb5b8ba97"
+                }
+            },
+            "candidate": {
+                "loaded": false,
+                "last_load_error": null
+            }
+        }
+    }
+}

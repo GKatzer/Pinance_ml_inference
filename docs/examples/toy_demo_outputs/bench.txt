@@ -1,0 +1,6 @@
+BTCUSDT, n=50 after 3 warm-up calls, toy models, same machine
+round trip ms: p50=49.2 p95=95.2 max=97.7
+inference_ms : p50=24.32 p95=70.55 max=72.40
+ETHUSDT, n=50 after 3 warm-up calls, toy models, same machine
+round trip ms: p50=50.8 p95=93.6 max=99.1
+inference_ms : p50=23.84 p95=26.34 max=27.16

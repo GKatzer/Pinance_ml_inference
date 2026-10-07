@@ -1,0 +1,53 @@
+## 1. push a good candidate (toy-2), wait for a poll
+BTCUSDT/candidate: version=toy-2 variant=ok features=93 files=37
+ETHUSDT/candidate: version=toy-2 variant=ok features=94 files=37
+{
+  "loaded": true,
+  "last_load_error": null,
+  "model_version": "toy-2",
+  "schema_version": "38b98fc7516d",
+  "matches_expected": true,
+  "quantile": {
+    "status": "loaded",
+    "quantile_model_version": "toy-2",
+    "quantile_schema_version": "38b98fc7516d"
+  }
+}
+
+## shadow prediction (first horizon)
+{'model_version': 'toy-2', 'schema_version': '38b98fc7516d', 'feature_count': 93} 1 ['horizon', 'price_pred', 'price_q10', 'price_q90', 'r_pred', 'r_q10', 'r_q90', 'target_ts']
+
+## 2. push toy-3 whose booster files have a renamed feature (metadata untouched)
+BTCUSDT/candidate: version=toy-3 variant=renamed-booster features=93 files=37
+ETHUSDT/candidate: version=toy-3 variant=renamed-booster features=94 files=37
+{
+  "loaded": true,
+  "last_load_error": "BTCUSDT: point model h1 was trained on different features than metadata.feature_columns (schema_version=21c8984f3440 vs 38b98fc7516d): only in booster: ['obv'], only in expected: ['obv_roc_36']",
+  "model_version": "toy-2",
+  "schema_version": "38b98fc7516d",
+  "matches_expected": true,
+  "quantile": {
+    "status": "loaded",
+    "quantile_model_version": "toy-2",
+    "quantile_schema_version": "38b98fc7516d"
+  }
+}
+
+## 3. push toy-4 with a corridor from another schema
+BTCUSDT/candidate: version=toy-4 variant=foreign-corridor features=93 files=37
+ETHUSDT/candidate: version=toy-4 variant=foreign-corridor features=94 files=37
+{
+  "loaded": true,
+  "last_load_error": "corridor ignored: quantile_schema_version=000000000000 != schema_version=38b98fc7516d",
+  "model_version": "toy-4",
+  "schema_version": "38b98fc7516d",
+  "matches_expected": true,
+  "quantile": {
+    "status": "ignored_schema_mismatch",
+    "quantile_model_version": "toy-4",
+    "quantile_schema_version": "000000000000"
+  }
+}
+
+## shadow prediction now: point only
+{'model_version': 'toy-4', 'quantile_model_version': 'toy-4', 'schema_version': '38b98fc7516d'} ['horizon', 'price_pred', 'r_pred', 'target_ts']

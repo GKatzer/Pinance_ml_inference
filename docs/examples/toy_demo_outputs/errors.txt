@@ -1,0 +1,23 @@
+## shadow-before-push  POST /predict/BTCUSDT/shadow
+{"detail":"No candidate model currently loaded for BTCUSDT"}
+HTTP 404
+
+## short-window  POST /predict/BTCUSDT
+{"detail":"BTCUSDT: only 100 candles in request (need >= 150)"}
+HTTP 422
+
+## as-of-mismatch  POST /predict/BTCUSDT
+{"detail":"BTCUSDT: as_of_ts=2026-01-11T09:50:00+00:00 does not match the last candle's ts=2026-01-11T09:55:00+00:00 -- candles[symbol][-1] must be the as_of_ts candle"}
+HTTP 422
+
+## eth-without-btc  POST /predict/ETHUSDT
+{"detail":"BTCUSDT: only 0 candles in request (need >= 150), required for ETHUSDT's btc_ret feature"}
+HTTP 422
+
+## unknown-symbol  POST /predict/DOGEUSDT
+{"detail":"No production model currently loaded for DOGEUSDT"}
+HTTP 404
+
+## malformed body
+{"detail":[{"type":"missing","loc":["body","candles"],"msg":"Field required","input":{"as_of_ts":"2026-01-11T09:55:00Z"}}]}
+HTTP 422
